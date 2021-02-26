@@ -21,9 +21,9 @@ As [256-color](https://en.wikipedia.org/wiki/8-bit_color) lookup tables became c
 
 ### Examples
 
-* ESC[ 38;5;⟨n⟩ m Select foreground color
-* ESC[ 48;5;⟨n⟩ m Select background color \
-* ESC[ 38;5;⟨n1⟩;48;5;⟨n2⟩ m both foreground and background \
+* ESC[ 38;5;⟨n⟩m Select foreground color
+* ESC[ 48;5;⟨n⟩m Select background color \
+* ESC[ 38;5;⟨n1⟩;48;5;⟨n2⟩m both foreground and background \
 0 - 7:  standard colors (as in ESC [ 30–37 m) \
 8 - 15:  high intensity colors (as in ESC [ 90–97 m) \
 16 - 231:  6 × 6 × 6 cube (216 colors): 16 + 36 × r + 6 × g + b (0 ≤ r, g, b ≤ 5) \
@@ -178,7 +178,7 @@ impl Color16 {
     }
 }
 
-/// ColorPrinter16 is a trait thats enhances String data type with the print16
+/// ColorPrinter is a trait thats enhances String data type with print_c16 and print_c256 functions.
 /// function.
 pub trait ColorPrinter {
     fn print_c16(&self, foreground: Color16, background: Color16) -> String;
@@ -212,6 +212,20 @@ impl ColorPrinter for String {
         result
     }
 
+    /// Enhance the given string with 256 color ansi scaped sequence.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use rustcolor::color::*;
+    ///
+    /// let red_fg_text = "this is a red foreground color text"
+    /// .to_owned()
+    /// .print_c256(1, 0);
+    ///
+    /// let expected = "\u{001b}[38;5;1;48;5;0mthis is a red foreground color text\u{001b}[0m";
+    /// assert_eq!(expected, red_fg_text);
+    /// ```
     fn print_c256(&self, foreground: usize, background: usize) -> String {
         let result = format!(
             "\u{001b}[38;5;{};48;5;{}m{}\u{001b}[0m",
