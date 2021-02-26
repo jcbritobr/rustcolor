@@ -1,6 +1,6 @@
 /*!
-# color16
-This module implements all 16 terminal color rendering operations,
+# color
+This module implements all terminal color rendering operations,
 color conversions, color name definitions and traits for rust color library.
 
 ### 3bit and 4bit
@@ -14,6 +14,20 @@ color, providing 8 additional foreground and background colors.
 * to get black letters on white background - **ESC[30;47m**.
 * to get brighter colors with black letters on white background - **ESC[90;107m**. (+60)
 * to reset all attributes - **ESC[0m**.
+
+### 8bit
+
+As [256-color](https://en.wikipedia.org/wiki/8-bit_color) lookup tables became common on graphic cards, escape sequences were added to select from a pre-defined set of 256 colors
+
+### Examples
+
+* ESC[ 38;5;⟨n⟩ m Select foreground color
+* ESC[ 48;5;⟨n⟩ m Select background color \
+* ESC[ 38;5;⟨n1⟩;48;5;⟨n2⟩ m both foreground and background \
+0 - 7:  standard colors (as in ESC [ 30–37 m) \
+8 - 15:  high intensity colors (as in ESC [ 90–97 m) \
+16 - 231:  6 × 6 × 6 cube (216 colors): 16 + 36 × r + 6 × g + b (0 ≤ r, g, b ≤ 5) \
+232-255:  grayscale from black to white in 24 steps
  */
 
 /// Implements 16 color rendering operations and describes 16 color enumerations.
@@ -62,7 +76,7 @@ impl Color16 {
     /// # Examples
     ///
     /// ```
-    /// use rustcolor::color16::*;
+    /// use rustcolor::color::*;
     ///
     /// let bg_blue = Color16::BgBlue;
     /// let result = Color16::color_to_usize(bg_blue);
@@ -77,7 +91,7 @@ impl Color16 {
     /// # Examples
     ///
     /// ```
-    /// use rustcolor::color16::*;
+    /// use rustcolor::color::*;
     ///
     /// let bg_blue = Color16::usize_to_color(44);
     /// let expected = Color16::BgBlue;
@@ -128,7 +142,7 @@ impl Color16 {
     /// # Examples
     ///
     /// ```
-    /// use rustcolor::color16::*;
+    /// use rustcolor::color::*;
     ///
     /// let fg_blue = Color16::FgBlue;
     /// let fg_light_blue = fg_blue.lighten();
@@ -148,7 +162,7 @@ impl Color16 {
     /// # Examples
     ///
     /// ```
-    /// use rustcolor::color16::*;
+    /// use rustcolor::color::*;
     ///
     /// let fg_light_red = Color16::FgLightRed;
     /// let fg_red = fg_light_red.darken();
@@ -166,17 +180,18 @@ impl Color16 {
 
 /// ColorPrinter16 is a trait thats enhances String data type with the print16
 /// function.
-pub trait ColorPrinter16 {
+pub trait ColorPrinter {
     fn print_c16(&self, foreground: Color16, background: Color16) -> String;
+    fn print_c256(&self, foreground: usize, background: usize) -> String;
 }
 
-impl ColorPrinter16 for String {
+impl ColorPrinter for String {
     /// Enhance the given string with 16 color ansi scaped sequence.
     ///
     /// # Examples
     ///
     /// ```
-    /// use rustcolor::color16::*;
+    /// use rustcolor::color::*;
     ///
     /// let red_fg_text = "this is a red foreground color text"
     ///     .to_owned()
@@ -193,6 +208,14 @@ impl ColorPrinter16 for String {
             Color16::color_to_usize(foreground),
             Color16::color_to_usize(background),
             self
+        );
+        result
+    }
+
+    fn print_c256(&self, foreground: usize, background: usize) -> String {
+        let result = format!(
+            "\u{001b}[38;5;{};48;5;{}m{}\u{001b}[0m",
+            foreground, background, self
         );
         result
     }

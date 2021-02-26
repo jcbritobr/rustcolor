@@ -6,56 +6,55 @@ rendering output, compatible with windows.
 Rust Color uses **ansi scaped sequences**. This [article](https://en.wikipedia.org/wiki/ANSI_escape_code) in
 wikipedia explain how it works.
 */
-pub mod color16;
-pub mod color256;
+pub mod color;
 
 #[cfg(test)]
 mod tests {
-    use color16::*;
-    use color256::*;
+    use color::*;
+
     use super::*;
     #[test]
     fn test_color16_enum_conversion_to_usize() {
         let mut expected = 31;
-        let mut got = color16::Color16::color_to_usize(color16::Color16::FgRed);
+        let mut got = color::Color16::color_to_usize(color::Color16::FgRed);
         assert_eq!(expected, got);
         expected = 41;
-        got = color16::Color16::color_to_usize(color16::Color16::BgRed);
+        got = color::Color16::color_to_usize(color::Color16::BgRed);
         assert_eq!(expected, got)
     }
 
     #[test]
     fn test_color16_usize_conversion_to_enum() {
-        let mut fg_expected = color16::Color16::FgRed;
-        let mut fg_got = color16::Color16::usize_to_color(31);
+        let mut fg_expected = color::Color16::FgRed;
+        let mut fg_got = color::Color16::usize_to_color(31);
         assert_eq!(fg_expected, fg_got);
-        fg_expected = color16::Color16::FgLightBlue;
-        fg_got = color16::Color16::usize_to_color(94);
+        fg_expected = color::Color16::FgLightBlue;
+        fg_got = color::Color16::usize_to_color(94);
         assert_eq!(fg_expected, fg_got);
     }
 
     #[test]
     fn test_color16_lighten() {
-        let fg_red = color16::Color16::FgRed;
+        let fg_red = color::Color16::FgRed;
         let fg_light_red = fg_red.lighten();
-        assert_eq!(color16::Color16::FgLightRed, fg_light_red);
-        let fg_blue = color16::Color16::FgBlue;
+        assert_eq!(color::Color16::FgLightRed, fg_light_red);
+        let fg_blue = color::Color16::FgBlue;
         let fg_light_blue = fg_blue.lighten();
-        assert_eq!(color16::Color16::FgLightBlue, fg_light_blue);
+        assert_eq!(color::Color16::FgLightBlue, fg_light_blue);
     }
 
     #[test]
     fn test_color16_darken() {
-        let fg_light_red = color16::Color16::FgLightRed;
+        let fg_light_red = color::Color16::FgLightRed;
         let fg_red = fg_light_red.darken();
-        assert_eq!(color16::Color16::FgRed, fg_red);
+        assert_eq!(color::Color16::FgRed, fg_red);
     }
 
     #[test]
     fn test_color16_printer() {
         let red_fg_text = "this is a red foreground color text"
             .to_owned()
-            .print_c16(color16::Color16::FgRed, color16::Color16::BgBlack);
+            .print_c16(color::Color16::FgRed, color::Color16::BgBlack);
 
         assert_eq!(
             "\u{001b}[31;40mthis is a red foreground color text\u{001b}[0m",
