@@ -1,7 +1,19 @@
 /*!
-# Color16
+# color16
 This module implements all 16 terminal color rendering operations,
 color conversions, color name definitions and traits for rust color library.
+
+### 3bit and 4bit
+
+The original specification only had 8 colors. The **SGR** parameters 30-37 selects
+the foreground color, while 40-37 selects the background. Few terminals implements brighter
+color, providing 8 additional foreground and background colors.
+
+### Examples
+
+* to get black letters on white background - **ESC[30;47m**.
+* to get brighter colors with black letters on white background - **ESC[90;107m**. (+60)
+* to reset all attributes - **ESC[0m**.
  */
 
 /// Implements 16 color rendering operations and describes 16 color enumerations.
@@ -129,5 +141,59 @@ impl Color16 {
         }
 
         *self
+    }
+
+    /// Darken the given color to its dark version.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use rustcolor::color16::*;
+    ///
+    /// let fg_light_red = Color16::FgLightRed;
+    /// let fg_red = fg_light_red.darken();
+    /// assert_eq!(Color16::FgRed, fg_red);
+    /// ```
+    pub fn darken(&self) -> Self {
+        let val = *self as usize;
+        if val >= 90 && val <= 107 {
+            return Self::usize_to_color(val - 60);
+        }
+
+        *self
+    }
+}
+
+/// ColorPrinter16 is a trait thats enhances String data type with the print16
+/// function.
+pub trait ColorPrinter16 {
+    fn print_c16(&self, foreground: Color16, background: Color16) -> String;
+}
+
+impl ColorPrinter16 for String {
+    /// Enhance the given string with 16 color ansi scaped sequence.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use rustcolor::color16::*;
+    ///
+    /// let red_fg_text = "this is a red foreground color text"
+    ///     .to_owned()
+    ///     .print_c16(Color16::FgRed, Color16::BgBlack);
+    ///
+    /// assert_eq!(
+    ///     "\u{001b}[31;40mthis is a red foreground color text\u{001b}[0m",
+    ///      red_fg_text
+    ///  );
+    /// ```
+    fn print_c16(&self, foreground: Color16, background: Color16) -> String {
+        let result = format!(
+            "\u{001b}[{};{}m{}\u{001b}[0m",
+            Color16::color_to_usize(foreground),
+            Color16::color_to_usize(background),
+            self
+        );
+        result
     }
 }
