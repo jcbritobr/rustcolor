@@ -181,11 +181,6 @@ impl Color16 {
 /// ColorPrinter is a trait thats enhances String data type with print_c16 and print_c256 functions.
 /// function.
 pub trait ColorPrinter {
-    fn print_c16(&self, foreground: Color16, background: Color16) -> String;
-    fn print_c256(&self, foreground: usize, background: usize) -> String;
-}
-
-impl ColorPrinter for String {
     /// Enhance the given string with 16 color ansi scaped sequence.
     ///
     /// # Examples
@@ -202,15 +197,7 @@ impl ColorPrinter for String {
     ///      red_fg_text
     ///  );
     /// ```
-    fn print_c16(&self, foreground: Color16, background: Color16) -> String {
-        let result = format!(
-            "\u{001b}[{};{}m{}\u{001b}[0m",
-            Color16::color_to_usize(foreground),
-            Color16::color_to_usize(background),
-            self
-        );
-        result
-    }
+    fn print_c16(&self, foreground: Color16, background: Color16) -> String;
 
     /// Enhance the given string with 256 color ansi scaped sequence.
     ///
@@ -226,11 +213,57 @@ impl ColorPrinter for String {
     /// let expected = "\u{001b}[38;5;1;48;5;0mthis is a red foreground color text\u{001b}[0m";
     /// assert_eq!(expected, red_fg_text);
     /// ```
+    fn print_c256(&self, foreground: usize, background: usize) -> String;
+
+    /// Enhance the given string with a white fg, red bg color text.
+    fn error(&self) -> String;
+
+    /// Enhance the given string with a red fg, default bg color text.
+    fn danger(&self) -> String;
+
+    /// Enhance the given string with a green fg, default bg color text.
+    fn info(&self) -> String;
+
+    /// Enhance the given string with a blue fg, default bg color text.
+    fn primary(&self) -> String;
+}
+
+impl ColorPrinter for String {
+    fn print_c16(&self, foreground: Color16, background: Color16) -> String {
+        let result = format!(
+            "\u{001b}[{};{}m{}\u{001b}[0m",
+            Color16::color_to_usize(foreground),
+            Color16::color_to_usize(background),
+            self
+        );
+        result
+    }
+
     fn print_c256(&self, foreground: usize, background: usize) -> String {
         let result = format!(
             "\u{001b}[38;5;{};48;5;{}m{}\u{001b}[0m",
             foreground, background, self
         );
+        result
+    }
+
+    fn error(&self) -> String {
+        let result = self.print_c16(Color16::FgWhite, Color16::BgRed);
+        result
+    }
+
+    fn danger(&self) -> String {
+        let result = self.print_c16(Color16::FgRed, Color16::BgDefault);
+        result
+    }
+
+    fn info(&self) -> String {
+        let result = self.print_c16(Color16::FgGreen, Color16::BgDefault);
+        result
+    }
+
+    fn primary(&self) -> String {
+        let result = self.print_c16(Color16::FgBlue, Color16::BgDefault);
         result
     }
 }

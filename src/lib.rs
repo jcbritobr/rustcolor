@@ -71,4 +71,24 @@ mod tests {
         let expected = "\u{001b}[38;5;1;48;5;0mthis is a red foreground color text\u{001b}[0m";
         assert_eq!(expected, red_fg_text);
     }
+
+    #[test]
+    fn test_default_3bit_color() {
+        let white_text = "white text with default bg".to_owned().error();
+        let mut expected = "\u{001b}[37;49mwhite text with default bg\u{001b}[0m";
+        assert_eq!(expected, white_text);
+        
+        let primary_text = "blue text with primary style".to_owned().primary();
+        expected =  "\u{001b}[34;49mblue text with primaty style\u{001b}[0m";
+        assert_eq!(expected, primary_text);
+
+        let danger = "red text with danger style".to_owned().danger();
+        expected =  "\u{001b}[31;49mred text with danger style\u{001b}[0m";
+        assert_eq!(expected, danger);
+
+        let info_text = "green text with info style".to_owned().info();
+        expected =  "\u{001b}[32;49mgreen text with default bg\u{001b}[0m";
+        assert_eq!(expected, info_text);
+
+    }
 }
