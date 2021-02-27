@@ -74,12 +74,12 @@ mod tests {
 
     #[test]
     fn test_default_3bit_color() {
-        let white_text = "white text with default bg".to_owned().error();
-        let mut expected = "\u{001b}[37;49mwhite text with default bg\u{001b}[0m";
-        assert_eq!(expected, white_text);
+        let error_text = "white text with red bg".to_owned().error();
+        let mut expected = "\u{001b}[37;41mwhite text with red bg\u{001b}[0m";
+        assert_eq!(expected, error_text);
         
         let primary_text = "blue text with primary style".to_owned().primary();
-        expected =  "\u{001b}[34;49mblue text with primaty style\u{001b}[0m";
+        expected =  "\u{001b}[34;49mblue text with primary style\u{001b}[0m";
         assert_eq!(expected, primary_text);
 
         let danger = "red text with danger style".to_owned().danger();
@@ -87,8 +87,12 @@ mod tests {
         assert_eq!(expected, danger);
 
         let info_text = "green text with info style".to_owned().info();
-        expected =  "\u{001b}[32;49mgreen text with default bg\u{001b}[0m";
+        expected =  "\u{001b}[32;49mgreen text with info style\u{001b}[0m";
         assert_eq!(expected, info_text);
+
+        let warn_text = "yellow text with warn style".to_owned().warn();
+        expected =  "\u{001b}[33;49myellow text with warn style\u{001b}[0m";
+        assert_eq!(expected, warn_text);
 
     }
 }

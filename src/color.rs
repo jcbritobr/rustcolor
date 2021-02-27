@@ -215,6 +215,9 @@ pub trait ColorPrinter {
     /// ```
     fn print_c256(&self, foreground: usize, background: usize) -> String;
 
+    /// Enhance the given string with a yellow fg, default bg color text.
+    fn warn(&self) -> String;
+
     /// Enhance the given string with a white fg, red bg color text.
     fn error(&self) -> String;
 
@@ -264,6 +267,11 @@ impl ColorPrinter for String {
 
     fn primary(&self) -> String {
         let result = self.print_c16(Color16::FgBlue, Color16::BgDefault);
+        result
+    }
+
+    fn warn(&self) -> String {
+        let result = self.print_c16(Color16::FgYellow, Color16::BgDefault);
         result
     }
 }
