@@ -9,7 +9,7 @@ wikipedia explain how it works.
 * How to install - Add the rustcolor crate to your Cargo.toml 
 ```
 [dependencies]
-rustcolor = {path = "../rustcolor"}
+rustcolor = {git = "https://github.com/jcbritobr/rustcolor"}
 ```
 ## How to use
 * **Styles** - The best way to start with rustcolor is using the predefined styles.
