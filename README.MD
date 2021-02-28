@@ -73,3 +73,7 @@ let custom_style = StyleBuilder::new()
 println!("{}", custom_style);
 ```
 ![custom style](thumbs/custom_style.png)
+
+* 3/4, 8 bit colors cheat sheet
+
+![cheatsheet](thumbs/8bitcheatsheet.png)
