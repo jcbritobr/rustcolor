@@ -57,7 +57,7 @@ impl StyleBuilder {
     }
 
     /// Inserts the tag 48;5 (background) to the style.
-    pub fn backgound_8bit(mut self) -> StyleBuilder {
+    pub fn background_8bit(mut self) -> StyleBuilder {
         self.message.push_str(BACKGROUND_8BIT);
         self
     }

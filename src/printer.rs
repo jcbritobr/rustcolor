@@ -123,7 +123,7 @@ impl ColorPrinter for String {
             .separator()
             .color(foreground)
             .separator()
-            .backgound_8bit()
+            .background_8bit()
             .separator()
             .color(background)
             .end_style()
