@@ -74,6 +74,6 @@ println!("{}", custom_style);
 ```
 ![custom style](thumbs/custom_style.png)
 
-* 3/4, 8 bit colors cheat sheet
+* 3/4, 8 bit colors cheat sheet - [Click here to download](thumbs/xterm_256color_chart.svg)
 
-![cheatsheet](thumbs/8bitcheatsheet.png)
+<image src="thumbs/xterm_256color_chart.svg" width="750" />]
