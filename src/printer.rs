@@ -102,15 +102,15 @@ pub trait ColorPrinter {
 impl ColorPrinter for String {
     fn print_c16(&self, foreground: usize, background: usize) -> String {
         let result = StyleBuilder::new()
-            .special()
+            .csi()
             .color(foreground)
-            .separator()
+            .delimiter()
             .color(background)
-            .end_style()
+            .end_sgr()
             .message(self)
-            .special()
+            .csi()
             .reset()
-            .end_style()
+            .end_sgr()
             .build();
 
         result
@@ -118,19 +118,19 @@ impl ColorPrinter for String {
 
     fn print_c256(&self, foreground: usize, background: usize) -> String {
         let result = StyleBuilder::new()
-            .special()
+            .csi()
             .foreground_8bit()
-            .separator()
+            .delimiter()
             .color(foreground)
-            .separator()
+            .delimiter()
             .background_8bit()
-            .separator()
+            .delimiter()
             .color(background)
-            .end_style()
+            .end_sgr()
             .message(self)
-            .special()
+            .csi()
             .reset()
-            .end_style()
+            .end_sgr()
             .build();
 
         result

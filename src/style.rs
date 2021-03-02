@@ -15,26 +15,26 @@ use rustcolor::style::StyleBuilder;
 
 let expected =  "\u{001b}[31;40mthis is a red foreground color text\u{001b}[0m";
 let result = StyleBuilder::new()
-    .special()
+    .csi()
     .color(31)
-    .separator()
+    .delimiter()
     .color(40)
-    .end_style()
+    .end_sgr()
     .message("this is a red foreground color text")
-    .special()
+    .csi()
     .reset()
-    .end_style()
+    .end_sgr()
     .build();
 
 assert_eq!(expected, expected);
 ```
  */
-const SPECIAL: &str = "\u{001b}[";
+const CSI: &str = "\u{001b}[";
 const BACKGROUND_8BIT: &str = "48;5";
 const FOREGROUND_8BIT: &str = "38;5";
-const END_STYLE: char = 'm';
+const END_SGR: char = 'm';
 const RESET: char = '0';
-const SEPARATOR: char = ';';
+const DELIMITER: char = ';';
 
 /// Implements a style builder pattern thats helps to build styles.
 pub struct StyleBuilder {
@@ -50,9 +50,9 @@ impl StyleBuilder {
         }
     }
 
-    /// Inserts the special byte ESC[ to the style.
-    pub fn special(mut self) -> StyleBuilder {
-        self.message.push_str(SPECIAL);
+    /// Inserts the control sequence introducer byte ESC[ to the style.
+    pub fn csi(mut self) -> StyleBuilder {
+        self.message.push_str(CSI);
         self
     }
 
@@ -81,15 +81,15 @@ impl StyleBuilder {
         self
     }
 
-    /// Inserts the tag ; (separator) to the style
-    pub fn separator(mut self) -> StyleBuilder {
-        self.message.push(SEPARATOR);
+    /// Inserts the tag ; (delimiter) to the style
+    pub fn delimiter(mut self) -> StyleBuilder {
+        self.message.push(DELIMITER);
         self
     }
 
-    /// Inserts the tag m (end of style) to the style.
-    pub fn end_style(mut self) -> StyleBuilder {
-        self.message.push(END_STYLE);
+    /// Inserts the tag m (end of sgr) to the style.
+    pub fn end_sgr(mut self) -> StyleBuilder {
+        self.message.push(END_SGR);
         self
     }
 

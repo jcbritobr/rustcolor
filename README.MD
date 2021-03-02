@@ -55,19 +55,19 @@ for i in 0..256 {
 * **Custom Styles** - The style module makes possible to build custom styles.
 ```rust
 let custom_style = StyleBuilder::new()
-    .special()
+    .csi()
     .foreground_8bit()
-    .separator()
+    .delimiter()
     .color(0)
-    .separator()
+    .delimiter()
     .background_8bit()
-    .separator()
+    .delimiter()
     .color(201)
-    .end_style()
+    .end_sgr()
     .message("a custom style with 0fg and 201bg")
-    .special()
+    .csi()
     .reset()
-    .end_style()
+    .end_sgr()
     .build();
 
 println!("{}", custom_style);
