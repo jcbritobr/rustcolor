@@ -7,8 +7,8 @@ rendering output, compatible with windows.
 The ANSI escape code standard, formally adopted as ISO/IEC 6429, defines a series of control sequences.
 Each control sequence begins with a **Control Sequence Introducer** (CSI), defined as a scape character
 followed immediately by a bracket: **ESC[**. In particular, a CSI followed by a certain number of "parameter bytes"
-(ASCII 0-9:; <=>?) then the letter m forms a control sequence known as **Select Graphic Dendition** (SGR). If no
-parameter bytes are explicity given, then it is assumed to be 0. SGR parameters can be chained together with a semicolon **;**
+(ASCII 0-9:; <=>?) then the letter m forms a control sequence known as **Select Graphic Rendition** (SGR). If no
+parameter bytes are explicitly given, then it is assumed to be 0. SGR parameters can be chained together with a semicolon **;**
 as **delimiter**.
 
 Some common SGR parameters are shown below.
