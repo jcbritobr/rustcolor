@@ -1,10 +1,15 @@
-/*! # Rust Color
+/*!
+# Rust Color
 Rust Color is a terminal color rendering library,
 thats supports 3/4 bit colors, 8 bit colors, 24 bit color
 rendering output, compatible with windows.
 
-Rust Color uses **ansi scape sequences**. This [article](https://en.wikipedia.org/wiki/ANSI_escape_code) in
-wikipedia explain how it works.
+## ANSI Escape Codes for Terminal Graphics
+The ANSI escape code standard, formally adopted as ISO/IEC 6429, defines a series of control sequences.
+Each control sequence begins with a **Control Sequence Introducer** (CSI), defined as a scape character
+followed immediately by a bracket: **ESC[**.
+
+
 */
 pub mod color;
 pub mod printer;
