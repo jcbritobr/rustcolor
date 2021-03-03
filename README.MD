@@ -28,15 +28,15 @@ Parameter | Effect
 48;2;r;g;b | background color (RGB, non-standard)
 90-97 | bright foreground color (non-standard)
 100-107 | bright background color (non-standard)
-<br/>
+
 
 * Below example will print a red underlined text.
-<br/><br/>
+
 ![sgi](thumbs/asciimessage.png)
-</br>
+
 
 * How to install - Add the rustcolor crate to your Cargo.toml 
-<br/>
+
 
 ```
 [dependencies]
