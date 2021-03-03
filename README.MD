@@ -13,21 +13,22 @@ as **delimiter**.
 
 Some common SGR parameters are shown below.
 
-Parameter | Effect
-- | -
-0 | reset all SGR effects to their default
-1 | bold or increased intensity
-2 | faint or decreased insensity
-4 | singly underlined
-5 | slow blink
-30-37 | foreground color (3/4 bit)
-38;5;x | foreground color (256 colors, non-standard)
-38;2;r;g;b | foreground color (RGB, non-standard)
-40-47 | background color (8 colors)
-48;5;x | background color (256 colors, non-standard)
-48;2;r;g;b | background color (RGB, non-standard)
-90-97 | bright foreground color (non-standard)
-100-107 | bright background color (non-standard)
+|Parameter | Effect|
+|- | -|
+|0 | reset all SGR effects to their default|
+|1 | bold or increased intensity|
+|2 | faint or decreased insensity|
+|4 | singly underlined|
+|5 | slow blink|
+|30-37 | foreground color (3/4 bit)|
+|38;5;x | foreground color (256 colors, non-standard)|
+|38;2;r;g;b | foreground color (RGB, non-standard)|
+|40-47 | background color (8 colors)|
+|48;5;x | background color (256 colors, non-standard)|
+|48;2;r;g;b | background color (RGB, non-standard)|
+|90-97 | bright foreground color (non-standard)|
+|100-107 | bright background color (non-standard)|
+
 
 
 * Below example will print a red underlined text.
