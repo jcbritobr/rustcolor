@@ -68,6 +68,8 @@ fn print_4bit_color() {
         let color_data = format!("  {:<4}", i);
         print!("{}", color_data.print_c16(30, i + 100));
     }
+
+    println!();
 }
 ```
 ![color4bit](thumbs/color4bit.png)
@@ -81,6 +83,8 @@ for i in 0..256 {
     }
     print!("{}", color_data.print_c256(90, i));
 }
+
+println!();
 ```
 ![color8bit](thumbs/color8bit.png)
 
