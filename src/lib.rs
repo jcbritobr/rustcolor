@@ -8,8 +8,6 @@ rendering output, compatible with windows.
 The ANSI escape code standard, formally adopted as ISO/IEC 6429, defines a series of control sequences.
 Each control sequence begins with a **Control Sequence Introducer** (CSI), defined as a scape character
 followed immediately by a bracket: **ESC[**.
-
-
 */
 pub mod color;
 pub mod printer;
@@ -67,5 +65,9 @@ mod tests {
         let blink_text = "this is a text with blink style".to_owned().blink();
         expected = "\u{001b}[31;5mthis is a text with blink style\u{001b}[0m";
         assert_eq!(expected, blink_text);
+
+        let underlined_text = "this is a text with underlined style".to_owned().underline();
+        expected = "\u{001b}[33;4mthis is a text with underlined style\u{001b}[0m";
+        assert_eq!(expected, underlined_text);
     }
 }
