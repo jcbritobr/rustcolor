@@ -63,5 +63,9 @@ mod tests {
         let warn_text = "yellow text with warn style".to_owned().warn();
         expected = "\u{001b}[33;49myellow text with warn style\u{001b}[0m";
         assert_eq!(expected, warn_text);
+
+        let blink_text = "this is a text with blink style".to_owned().blink();
+        expected = "\u{001b}[31;5mthis is a text with blink style\u{001b}[0m";
+        assert_eq!(expected, blink_text);
     }
 }
