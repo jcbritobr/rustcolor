@@ -35,6 +35,7 @@ const FOREGROUND_8BIT: &str = "38;5";
 const END_SGR: char = 'm';
 const RESET: char = '0';
 const DELIMITER: char = ';';
+const BLINK: char = '5';
 
 /// Implements a style builder pattern thats helps to build styles.
 pub struct StyleBuilder {
@@ -48,6 +49,12 @@ impl StyleBuilder {
         Self {
             message: "".to_owned(),
         }
+    }
+
+    /// Inserts the tag 4 (blink) to the style
+    pub fn blink(mut self) -> StyleBuilder {
+        self.message.push(BLINK);
+        self
     }
 
     /// Inserts the control sequence introducer byte ESC[ to the style.

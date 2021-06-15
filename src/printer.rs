@@ -97,6 +97,17 @@ pub trait ColorPrinter {
     /// println!("{}", "this is the primary style".to_owned().primary());
     /// ```
     fn primary(&self) -> String;
+
+    /// Enhance the given string with a red fg, blink tag and default bg color text.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use rustcolor::printer::*;
+    ///
+    /// println!("{}", "this is the blink style".to_owned().blink());
+    /// ```
+    fn blink(&self) -> String;
 }
 
 impl ColorPrinter for String {
@@ -158,6 +169,22 @@ impl ColorPrinter for String {
 
     fn warn(&self) -> String {
         let result = self.print_c16(33, 49);
+        result
+    }
+
+    fn blink(&self) -> String {
+        let result = StyleBuilder::new()
+            .csi()
+            .color(31)
+            .delimiter()
+            .blink()
+            .end_sgr()
+            .message(self)
+            .csi()
+            .reset()
+            .end_sgr()
+            .build();
+
         result
     }
 }
