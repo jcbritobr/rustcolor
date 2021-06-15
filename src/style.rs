@@ -36,6 +36,7 @@ const END_SGR: char = 'm';
 const RESET: char = '0';
 const DELIMITER: char = ';';
 const BLINK: char = '5';
+const UNDERLINE: char = '4';
 
 /// Implements a style builder pattern thats helps to build styles.
 pub struct StyleBuilder {
@@ -51,7 +52,13 @@ impl StyleBuilder {
         }
     }
 
-    /// Inserts the tag 4 (blink) to the style
+    /// Inserts the tag 4 (underlined) to the style
+    pub fn underline(mut self) -> StyleBuilder {
+        self.message.push(UNDERLINE);
+        self
+    }
+
+    /// Inserts the tag 5 (blink) to the style
     pub fn blink(mut self) -> StyleBuilder {
         self.message.push(BLINK);
         self
