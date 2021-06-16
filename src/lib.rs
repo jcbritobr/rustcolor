@@ -16,13 +16,15 @@ pub mod style;
 #[cfg(test)]
 mod tests {
     use printer::*;
+    use crate::color::*;
+
     use super::*;
 
     #[test]
     fn test_color16_printer() {
         let red_fg_text = "this is a red foreground color text"
             .to_owned()
-            .print_c16(31, 40);
+            .print_c16(FG_RED, BG_BLACK);
 
         assert_eq!(
             "\u{001b}[31;40mthis is a red foreground color text\u{001b}[0m",
