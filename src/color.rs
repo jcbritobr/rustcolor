@@ -28,3 +28,51 @@ As [256-color](https://en.wikipedia.org/wiki/8-bit_color) lookup tables became c
 16 - 231:  6 × 6 × 6 cube (216 colors): 16 + 36 × r + 6 × g + b (0 ≤ r, g, b ≤ 5) \
 232-255:  grayscale from black to white in 24 steps
 */
+
+use std::usize;
+
+pub const FG_BLACK: usize = 30;
+pub const FG_RED: usize = 31;
+pub const FG_GREEN: usize = 32;
+pub const FG_YELLOW: usize = 33;
+pub const FG_BLUE: usize = 34;
+pub const FG_MAGENTA: usize = 35;
+pub const FG_CYAN: usize = 36;
+pub const FG_WHITE: usize = 37;
+pub const DEFAULT: usize = 39;
+
+pub const BG_BLACK: usize = 40;
+pub const BG_RED: usize = 41;
+pub const BG_GREEN: usize = 42;
+pub const BG_YELLOW: usize = 43;
+pub const BG_BLUE: usize = 44;
+pub const BG_MAGENTA: usize = 45;
+pub const BG_CYAN: usize = 46;
+pub const BG_WHITE: usize = 47;
+pub const BG_DEFAULT: usize = 49;
+
+pub const FG_DARK_GRAY: usize = 90;
+pub const FG_LIGHT_RED: usize = 91;
+pub const FG_LIGHT_GREEN: usize = 92;
+pub const FG_LIGHT_YELLOW: usize = 93;
+pub const FG_LIGHT_BLUE: usize = 94;
+pub const FG_LIGHT_MAGENTA: usize = 95;
+pub const FG_LIGHT_CYAN: usize = 96;
+pub const FG_LIGHT_WHITE: usize = 97;
+
+pub const BG_DARK_GRAY: usize = 100;
+pub const BG_LIGHT_RED: usize = 101;
+pub const BG_LIGHT_GREEN: usize = 102;
+pub const BG_LIGH_YELLOW: usize = 103;
+pub const BG_LIGHT_BLUE: usize = 104;
+pub const BG_LIGHT_MAGENTA: usize = 105;
+pub const BG_LIGHT_CYAN: usize = 106;
+pub const BG_LIGHT_WHITE: usize = 107;
+
+pub fn darken(color: usize) -> usize {
+    color - 60
+}
+
+pub fn lighten(color: usize) -> usize {
+    color + 60
+}

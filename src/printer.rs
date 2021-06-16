@@ -4,6 +4,9 @@ This modules implements all functionalities to print fomatted ansi scape text, a
 predefined styles. Thre trait ColorPrinter enhances the String type, adding new functions in it.
  */
 
+use std::usize;
+
+use crate::color::*;
 use crate::style::StyleBuilder;
 
 /// ColorPrinter is a trait thats enhances String data type with print_c16 and print_c256 functions.
@@ -15,10 +18,11 @@ pub trait ColorPrinter {
     ///
     /// ```
     /// use rustcolor::printer::*;
+    /// use rustcolor::color::*;
     ///
     /// let red_fg_text = "this is a red foreground color text"
     ///     .to_owned()
-    ///     .print_c16(31, 40);
+    ///     .print_c16(FG_RED, BG_BLACK);
     ///
     /// assert_eq!(
     ///     "\u{001b}[31;40mthis is a red foreground color text\u{001b}[0m",
@@ -159,34 +163,34 @@ impl ColorPrinter for String {
     }
 
     fn error(&self) -> String {
-        let result = self.print_c16(37, 41);
+        let result = self.print_c16(FG_WHITE, BG_RED);
         result
     }
 
     fn danger(&self) -> String {
-        let result = self.print_c16(31, 49);
+        let result = self.print_c16(FG_RED, BG_DEFAULT);
         result
     }
 
     fn info(&self) -> String {
-        let result = self.print_c16(32, 49);
+        let result = self.print_c16(FG_GREEN, BG_DEFAULT);
         result
     }
 
     fn primary(&self) -> String {
-        let result = self.print_c16(34, 49);
+        let result = self.print_c16(FG_BLUE, BG_DEFAULT);
         result
     }
 
     fn warn(&self) -> String {
-        let result = self.print_c16(33, 49);
+        let result = self.print_c16(FG_YELLOW, BG_DEFAULT);
         result
     }
 
     fn blink(&self) -> String {
         let result = StyleBuilder::new()
             .csi()
-            .color(31)
+            .color(FG_RED)
             .delimiter()
             .blink()
             .end_sgr()
@@ -202,7 +206,7 @@ impl ColorPrinter for String {
     fn underline(&self) -> String {
         let result = StyleBuilder::new()
             .csi()
-            .color(33)
+            .color(FG_YELLOW)
             .delimiter()
             .underline()
             .end_sgr()
