@@ -69,10 +69,12 @@ pub const BG_LIGHT_MAGENTA: usize = 105;
 pub const BG_LIGHT_CYAN: usize = 106;
 pub const BG_LIGHT_WHITE: usize = 107;
 
+/// darken the color if it has 4bit
 pub fn darken(color: usize) -> usize {
     color - 60
 }
 
+/// lighten the color if it has 4bit
 pub fn lighten(color: usize) -> usize {
     color + 60
 }

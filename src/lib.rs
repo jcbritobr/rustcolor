@@ -72,4 +72,16 @@ mod tests {
         expected = "\u{001b}[33;4mthis is a text with underlined style\u{001b}[0m";
         assert_eq!(expected, underlined_text);
     }
+
+    #[test]
+    fn test_darken() {
+        let result = darken(FG_LIGHT_RED);
+        assert_eq!(FG_RED, result);
+    }
+
+    #[test]
+    fn test_lighten() {
+        let result = lighten(FG_RED);
+        assert_eq!(FG_LIGHT_RED, result);
+    }
 }
