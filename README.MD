@@ -76,6 +76,18 @@ fn print_4bit_color() {
 
 * **Printing 8bit color** - Its possible to print 8bit colors using print_c256 function.
 ```rust
+macro_rules! print_color_pallette {
+    ($background:expr, $offset:expr, $op:tt) => {
+        for i in (C8_000..C8_006) {
+            ...
+            println!(
+                        "{}{}{}{}{}{}{}{}{}{}{}{}",
+                        color_data_0.print_c256($background, $offset.0 $op i),
+                        ...
+            )
+        }
+    }
+}
 fn main() {
     let cold_a = Offset(16, 22, 28, 34, 40, 46, 82, 76, 70, 64, 58, 52);
     let cold_b = Offset(93, 99, 105, 111, 117, 123, 159, 153, 147, 141, 135, 129);
