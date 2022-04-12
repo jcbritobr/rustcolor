@@ -27,6 +27,8 @@ As [256-color](https://en.wikipedia.org/wiki/8-bit_color) lookup tables became c
 8 - 15:  high intensity colors (as in ESC [ 90–97 m) \
 16 - 231:  6 × 6 × 6 cube (216 colors): 16 + 36 × r + 6 × g + b (0 ≤ r, g, b ≤ 5) \
 232-255:  grayscale from black to white in 24 steps
+
+### 24bit
 */
 
 use std::usize;
@@ -360,3 +362,6 @@ pub const C8_252: usize = 252;
 pub const C8_253: usize = 253;
 pub const C8_254: usize = 254;
 pub const C8_255: usize = 255;
+
+/// RGB color data
+pub struct RGB(pub u8, pub u8, pub u8);

@@ -47,6 +47,8 @@ pub trait ColorPrinter {
     /// ```
     fn print_c256(&self, foreground: usize, background: usize) -> String;
 
+    fn print_24bit(&self, foreground: RGB, background: RGB) -> String;
+
     /// Enhance the given string with a yellow fg, default bg color text.
     ///
     /// # Examples
@@ -133,13 +135,13 @@ impl ColorPrinter for String {
             .delimiter()
             .color(background)
             .end_sgr()
-            .message(self)
+            .message()
             .csi()
             .reset()
             .end_sgr()
             .build();
 
-        result
+        result.render(self)
     }
 
     fn print_c256(&self, foreground: usize, background: usize) -> String {
@@ -153,13 +155,13 @@ impl ColorPrinter for String {
             .delimiter()
             .color(background)
             .end_sgr()
-            .message(self)
+            .message()
             .csi()
             .reset()
             .end_sgr()
             .build();
 
-        result
+        result.render(self)
     }
 
     fn error(&self) -> String {
@@ -194,13 +196,13 @@ impl ColorPrinter for String {
             .delimiter()
             .blink()
             .end_sgr()
-            .message(self)
+            .message()
             .csi()
             .reset()
             .end_sgr()
             .build();
 
-        result
+        result.render(self)
     }
 
     fn underline(&self) -> String {
@@ -210,12 +212,43 @@ impl ColorPrinter for String {
             .delimiter()
             .underline()
             .end_sgr()
-            .message(self)
+            .message()
             .csi()
             .reset()
             .end_sgr()
             .build();
 
-        result
+        result.render(self)
+    }
+
+    fn print_24bit(&self, foreground: RGB, background: RGB) -> String {
+        let RGB(fr, fg, fb) =  foreground;
+        let RGB(br, bg, bb) =  background;
+        let result = StyleBuilder::new()
+            .csi()
+            .foreground_24bit()
+            .delimiter()
+            .color(fr as usize)
+            .delimiter()
+            .color(fg as usize)
+            .delimiter()
+            .color(fb as usize)
+            .delimiter()
+
+            .background_24bit()
+            .delimiter()
+            .color(br as usize)
+            .delimiter()
+            .color(bg as usize)
+            .delimiter()
+            .color(bb as usize)
+
+            .end_sgr()
+            .message()
+            .csi()
+            .reset()
+            .end_sgr()
+            .build();
+        result.render(self)
     }
 }
