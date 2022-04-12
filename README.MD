@@ -101,24 +101,61 @@ fn main() {
 
 * **Custom Styles** - The style module makes possible to build custom styles.
 ```rust
-let custom_style = StyleBuilder::new()
-    .csi()
-    .foreground_8bit()
-    .delimiter()
-    .color(0)
-    .delimiter()
-    .background_8bit()
-    .delimiter()
-    .color(201)
-    .end_sgr()
-    .message("a custom style with 0fg and 201bg")
-    .csi()
-    .reset()
-    .end_sgr()
-    .build();
-
-println!("{}", custom_style);
+fn main() {
+    let custom_style = StyleBuilder::new()
+        .csi()
+        .foreground_8bit()
+        .delimiter()
+        .color(0)
+        .delimiter()
+        .background_8bit()
+        .delimiter()
+        .color(201)
+        .end_sgr()
+        .message()
+        .csi()
+        .reset()
+        .end_sgr()
+        .build();
+    
+    println!("{}", custom_style.render(" a custom style with 0fg and 201bg "));
+}
 ```
+
+
 ![custom style](thumbs/custom_style.png)
+
+* **24 Bit Color Support** - Draw 24 bit color using print_24bit function.
+```rust
+fn main() {
+    let step = 12;
+    println!("***RGB***");
+    for i in (0..=255).step_by(step) {
+        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(i, 0, 0)));
+    }
+    println!();
+    for i in (0..=255).step_by(step) {
+        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(0, i, 0)));
+    }
+    println!();
+    for i in (0..=255).step_by(step) {
+        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(0, 0, i)));
+    }
+    println!("\n***CMY***");
+    for i in (0..=255).step_by(step) {
+        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(255-i, 255-0, 255-0)));
+    }
+    println!();
+    for i in (0..=255).step_by(step) {
+        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(255-0, 255-i, 255-0)));
+    }
+    println!();
+    for i in (0..=255).step_by(step) {
+        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(255-0, 255-0, 255-i)));
+    }
+    println!();
+}
+```
+![custom style](thumbs/print24bitcolor.png)
 
 * 3/4, 8 bit colors cheat sheet - [Click here to download](thumbs/xterm_256color_chart.svg)

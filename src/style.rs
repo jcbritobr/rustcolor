@@ -1,4 +1,4 @@
-/*! 
+/*!
 # style
 This module has a builder thats helps to easily build syles.
 Thre are rules that **must be followed** to build a style:
@@ -20,18 +20,21 @@ let result = StyleBuilder::new()
     .delimiter()
     .color(40)
     .end_sgr()
-    .message("this is a red foreground color text")
+    .message()
     .csi()
     .reset()
     .end_sgr()
     .build();
 
-assert_eq!(expected, expected);
+assert_eq!(expected, result.render("this is a red foreground color text"));
 ```
  */
 const CSI: &str = "\u{001b}[";
 const BACKGROUND_8BIT: &str = "48;5";
 const FOREGROUND_8BIT: &str = "38;5";
+const BACKGROUND_24BIT: &str = "48;2";
+const FOREGROUND_24BIT: &str = "38;2";
+const MESSAGE: &str = "${}";
 const END_SGR: char = 'm';
 const RESET: char = '0';
 const DELIMITER: char = ';';
@@ -44,7 +47,6 @@ pub struct StyleBuilder {
 }
 
 impl StyleBuilder {
-
     /// Creates a new builder and initializes a new message.
     pub fn new() -> Self {
         Self {
@@ -82,10 +84,21 @@ impl StyleBuilder {
         self
     }
 
-
     /// Inserts the tag 18;5 (foreground) to the style.
     pub fn foreground_8bit(mut self) -> StyleBuilder {
         self.message.push_str(FOREGROUND_8BIT);
+        self
+    }
+
+    /// Inserts the tag BACKGROUND_24BIT to the style.
+    pub fn background_24bit(mut self) -> StyleBuilder {
+        self.message.push_str(BACKGROUND_24BIT);
+        self
+    }
+
+    /// Inserts the tag FOREGROUND_24BIT to the style.
+    pub fn foreground_24bit(mut self) -> StyleBuilder {
+        self.message.push_str(FOREGROUND_24BIT);
         self
     }
 
@@ -107,14 +120,28 @@ impl StyleBuilder {
         self
     }
 
-    /// Inserts the message that will be printed to style.
-    pub fn message(mut self, message: &str) -> StyleBuilder {
-        self.message.push_str(message);
+    /// Inserts placeholder message that will be printed to style.
+    pub fn message(mut self) -> StyleBuilder {
+        self.message.push_str(MESSAGE);
         self
     }
 
-    /// Build the style.
-    pub fn build(self) -> String {
-        self.message
+    /// Build the style, and self consum.
+    pub fn build(self) -> Style {
+        Style {
+            message: self.message,
+        }
+    }
+}
+
+/// A style that has a formatted string
+pub struct Style {
+    message: String,
+}
+
+impl Style {
+    /// Builds a formatted string with all ansi scaped codes used in StyleBuilder
+    pub fn render(&self, message: &str) -> String {
+        self.message.replace(MESSAGE, message)
     }
 }

@@ -1,6 +1,6 @@
 [package]
 name = "rustcolor"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Júlio César de Brito Gardona <jcbritobr@gmail.com>"]
 edition = "2018"
 
@@ -14,6 +14,9 @@ name = "print4bitcolor"
 
 [[bin]]
 name = "print8bitcolor"
+
+[[bin]]
+name = "print24bitcolor"
 
 [[bin]]
 name = "customstyle"

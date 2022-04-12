@@ -1,4 +1,4 @@
-use rustcolor::style::StyleBuilder;
+use rustcolor::{style::StyleBuilder};
 
 fn main() {
     let custom_style = StyleBuilder::new()
@@ -11,11 +11,11 @@ fn main() {
         .delimiter()
         .color(201)
         .end_sgr()
-        .message("a custom style with 0fg and 201bg")
+        .message()
         .csi()
         .reset()
         .end_sgr()
         .build();
-
-    println!("{}", custom_style);
+    
+    println!("{}", custom_style.render(" a custom style with 0fg and 201bg "));
 }
