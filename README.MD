@@ -46,11 +46,11 @@ rustcolor = {git = "https://github.com/jcbritobr/rustcolor"}
 ## How to use
 * **Styles** - The best way to start with rustcolor is using the predefined styles.
 ```rust
-println!("{}", "this is the info style".to_owned().info());
-println!("{}", "this is the primary style".to_owned().primary());
-println!("{}", "this is the warn style".to_owned().warn());
-println!("{}", "this is the danger style".to_owned().danger());
-println!("{}", "this is the error style".to_owned().error());
+println!("{}", "this is the info style".info());
+println!("{}", "this is the primary style".primary());
+println!("{}", "this is the warn style".warn());
+println!("{}", "this is the danger style".danger());
+println!("{}", "this is the error style".error());
 ```
 ![styles](thumbs/styles.png)
 
@@ -131,27 +131,27 @@ fn main() {
     let step = 12;
     println!("***RGB***");
     for i in (0..=255).step_by(step) {
-        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(i, 0, 0)));
+        print!("{}", " ".print_24bit(RGB(0, 0, 0), RGB(i, 0, 0)));
     }
     println!();
     for i in (0..=255).step_by(step) {
-        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(0, i, 0)));
+        print!("{}", " ".print_24bit(RGB(0, 0, 0), RGB(0, i, 0)));
     }
     println!();
     for i in (0..=255).step_by(step) {
-        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(0, 0, i)));
+        print!("{}", " ".print_24bit(RGB(0, 0, 0), RGB(0, 0, i)));
     }
     println!("\n***CMY***");
     for i in (0..=255).step_by(step) {
-        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(255-i, 255-0, 255-0)));
+        print!("{}", " ".print_24bit(RGB(0, 0, 0), RGB(255-i, 255-0, 255-0)));
     }
     println!();
     for i in (0..=255).step_by(step) {
-        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(255-0, 255-i, 255-0)));
+        print!("{}", " ".print_24bit(RGB(0, 0, 0), RGB(255-0, 255-i, 255-0)));
     }
     println!();
     for i in (0..=255).step_by(step) {
-        print!("{}", " ".to_owned().print_24bit(RGB(0, 0, 0), RGB(255-0, 255-0, 255-i)));
+        print!("{}", " ".print_24bit(RGB(0, 0, 0), RGB(255-0, 255-0, 255-i)));
     }
     println!();
 }

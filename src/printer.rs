@@ -21,7 +21,6 @@ pub trait ColorPrinter {
     /// use rustcolor::color::*;
     ///
     /// let red_fg_text = "this is a red foreground color text"
-    ///     .to_owned()
     ///     .print_c16(FG_RED, BG_BLACK);
     ///
     /// assert_eq!(
@@ -39,8 +38,7 @@ pub trait ColorPrinter {
     /// use rustcolor::printer::*;
     ///
     /// let red_fg_text = "this is a red foreground color text"
-    /// .to_owned()
-    /// .print_c256(1, 0);
+    ///     .print_c256(1, 0);
     ///
     /// let expected = "\u{001b}[38;5;1;48;5;0mthis is a red foreground color text\u{001b}[0m";
     /// assert_eq!(expected, red_fg_text);
@@ -56,7 +54,7 @@ pub trait ColorPrinter {
     /// ```
     /// use rustcolor::printer::*;
     ///
-    /// println!("{}", "this is the warn style".to_owned().warn());
+    /// println!("{}", "this is the warn style".warn());
     /// ```
     fn warn(&self) -> String;
 
@@ -67,7 +65,7 @@ pub trait ColorPrinter {
     /// ```
     /// use rustcolor::printer::*;
     ///
-    /// println!("{}", "this is the error style".to_owned().error());
+    /// println!("{}", "this is the error style".error());
     /// ```
     fn error(&self) -> String;
 
@@ -78,7 +76,7 @@ pub trait ColorPrinter {
     /// ```
     /// use rustcolor::printer::*;
     ///
-    /// println!("{}", "this is the danger style".to_owned().danger());
+    /// println!("{}", "this is the danger style".danger());
     /// ```
     fn danger(&self) -> String;
 
@@ -89,7 +87,7 @@ pub trait ColorPrinter {
     /// ```
     /// use rustcolor::printer::*;
     ///
-    /// println!("{}", "this is the info style".to_owned().info());
+    /// println!("{}", "this is the info style".info());
     /// ```
     fn info(&self) -> String;
 
@@ -100,7 +98,7 @@ pub trait ColorPrinter {
     /// ```
     /// use rustcolor::printer::*;
     ///
-    /// println!("{}", "this is the primary style".to_owned().primary());
+    /// println!("{}", "this is the primary style".primary());
     /// ```
     fn primary(&self) -> String;
 
@@ -111,7 +109,7 @@ pub trait ColorPrinter {
     /// ```
     /// use rustcolor::printer::*;
     ///
-    /// println!("{}", "this is the blink style".to_owned().blink());
+    /// println!("{}", "this is the blink style".blink());
     /// ```
     fn blink(&self) -> String;
 
@@ -122,12 +120,12 @@ pub trait ColorPrinter {
     /// ```
     /// use rustcolor::printer::*;
     ///
-    /// println!("{}", "this is the underlined style".to_owned().underline());
+    /// println!("{}", "this is the underlined style".underline());
     /// ```
     fn underline(&self) -> String;
 }
 
-impl ColorPrinter for String {
+impl ColorPrinter for str {
     fn print_c16(&self, foreground: usize, background: usize) -> String {
         let result = StyleBuilder::new()
             .csi()
@@ -222,8 +220,8 @@ impl ColorPrinter for String {
     }
 
     fn print_24bit(&self, foreground: RGB, background: RGB) -> String {
-        let RGB(fr, fg, fb) =  foreground;
-        let RGB(br, bg, bb) =  background;
+        let RGB(fr, fg, fb) = foreground;
+        let RGB(br, bg, bb) = background;
         let result = StyleBuilder::new()
             .csi()
             .foreground_24bit()
@@ -234,7 +232,6 @@ impl ColorPrinter for String {
             .delimiter()
             .color(fb as usize)
             .delimiter()
-
             .background_24bit()
             .delimiter()
             .color(br as usize)
@@ -242,7 +239,6 @@ impl ColorPrinter for String {
             .color(bg as usize)
             .delimiter()
             .color(bb as usize)
-
             .end_sgr()
             .message()
             .csi()
