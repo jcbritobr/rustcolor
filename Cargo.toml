@@ -1,8 +1,12 @@
 [package]
 name = "rustcolor"
 version = "0.4.0"
-authors = ["Júlio César de Brito Gardona <jcbritobr@gmail.com>"]
+authors = ["jcbritobr <jcbritobr@gmail.com>"]
 edition = "2018"
+repository = "https://github.com/jcbritobr/rustcolor"
+homepage = "https://github.com/jcbritobr/rustcolor"
+description = "Rust terminal rendering library thats supports 3/4 bit, 8 bit and 24 bit colors."
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
