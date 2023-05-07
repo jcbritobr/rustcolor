@@ -1,6 +1,6 @@
 [package]
 name = "rustcolor"
-version = "0.4.0"
+version = "0.4.1"
 authors = ["jcbritobr <jcbritobr@gmail.com>"]
 edition = "2018"
 repository = "https://github.com/jcbritobr/rustcolor"
