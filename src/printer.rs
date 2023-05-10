@@ -1,6 +1,6 @@
 /*!
 # printer
-This modules implements all functionalities to print fomatted ansi scape text, as
+This module implements all functionalities to print fomatted ansi scape text, as
 predefined styles. Thre trait ColorPrinter enhances the String type, adding new functions in it.
  */
 

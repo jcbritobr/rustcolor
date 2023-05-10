@@ -1,10 +1,11 @@
-use rustcolor::printer::ColorPrinter;
+use rustcolor::{blink, danger, error, info, primary, printer::ColorPrinter, underline, warn};
 
 fn main() {
-    println!("{}", "this is the info style".to_owned().info());
-    println!("{}", "this is the primary style".to_owned().primary());
-    println!("{}", "this is the warn style".to_owned().warn());
-    println!("{}", "this is the danger style".to_owned().danger());
-    println!("{}", "this is the error style".to_owned().error());
-    println!("{}", "this is the underlined style".to_owned().underline());
+    info!("this is the info style");
+    primary!("this is the primary style");
+    warn!("this is the warn style");
+    danger!("this is the danger style");
+    error!("this is the error style");
+    underline!("this is the underlined style");
+    blink!("this is the blink style");
 }

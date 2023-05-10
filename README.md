@@ -46,11 +46,13 @@ rustcolor = {git = "https://github.com/jcbritobr/rustcolor"}
 ## How to use
 * **Styles** - The best way to start with rustcolor is using the predefined styles.
 ```rust
-println!("{}", "this is the info style".info());
-println!("{}", "this is the primary style".primary());
-println!("{}", "this is the warn style".warn());
-println!("{}", "this is the danger style".danger());
-println!("{}", "this is the error style".error());
+info!("this is the info style");
+primary!("this is the primary style");
+warn!("this is the warn style");
+danger!("this is the danger style");
+error!("this is the error style");
+underline!("this is the underlined style");
+blink!("this is the blink style");
 ```
 ![styles](thumbs/styles.png)
 

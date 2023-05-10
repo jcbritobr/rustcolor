@@ -10,15 +10,16 @@ Each control sequence begins with a **Control Sequence Introducer** (CSI), defin
 followed immediately by a bracket: **ESC[**.
 */
 pub mod color;
+
+pub mod macros;
 pub mod printer;
 pub mod style;
 
 #[cfg(test)]
 mod tests {
+    use super::*;
     use crate::color::*;
     use printer::*;
-
-    use super::*;
 
     #[test]
     fn test_color16_printer() {
@@ -79,5 +80,40 @@ mod tests {
     fn test_lighten() {
         let result = lighten(FG_RED);
         assert_eq!(FG_LIGHT_RED, result);
+    }
+
+    #[test]
+    fn test_info_macro() {
+        info!("this is an info text");
+    }
+
+    #[test]
+    fn test_primary_macro() {
+        primary!("this is a primary text");
+    }
+
+    #[test]
+    fn test_warn_macro() {
+        warn!("this is a warn text");
+    }
+
+    #[test]
+    fn test_danger_macro() {
+        danger!("this is a danger text");
+    }
+
+    #[test]
+    fn test_error_macro() {
+        error!("this is an error text");
+    }
+
+    #[test]
+    fn test_blink_macro() {
+        blink!("this is a blink text");
+    }
+
+    #[test]
+    fn test_underline_macro() {
+        underline!("this is an underline text");
     }
 }
